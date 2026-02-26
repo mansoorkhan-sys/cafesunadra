@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Cafe Sundara — Durgapur's ultimate anime battle café. Experience anime culture, power-up food, and legendary vibes in West Bengal." />
+  <meta name="keywords" content="Cafe Sundara, anime cafe, Durgapur, West Bengal, anime themed restaurant, manga cafe, shonen cafe" />
+  <meta name="author" content="Cafe Sundara" />
+  <meta property="og:title" content="Cafe Sundara — Where Legends Power Up" />
+  <meta property="og:description" content="Durgapur's Ultimate Anime Battle Café — Enter the Arena!" />
+  <meta property="og:type" content="website" />
+  <title>Cafe Sundara — Where Legends Power Up | Durgapur Anime Café</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@400;500;600;700&family=Orbitron:wght@400;600;700;900&family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet" />
+
+  <!-- GSAP -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+  <!-- Lenis Smooth Scroll -->
+  <script src="https://unpkg.com/lenis@1.1.14/dist/lenis.min.js"></script>
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ═══════════════ CUSTOM CURSOR ═══════════════ -->
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-trail" id="cursorTrail"></div>
+
+  <!-- ═══════════════ SCROLL PROGRESS BAR ═══════════════ -->
+  <div class="scroll-progress" id="scrollProgress"></div>
+
+  <!-- ═══════════════ PRELOADER ═══════════════ -->
+  <div class="preloader" id="preloader">
+    <div class="preloader-inner">
+      <div class="preloader-logo">
+        <span class="preloader-kanji">力</span>
+        <h2>CAFE SUNDARA</h2>
+      </div>
+      <div class="charge-bar-wrapper">
+        <div class="charge-label">POWERING UP...</div>
+        <div class="charge-bar-bg">
+          <div class="charge-bar-fill" id="chargeFill"></div>
+          <div class="charge-bar-glow"></div>
+        </div>
+        <div class="charge-percent" id="chargePercent">0%</div>
+      </div>
+      <div class="preloader-particles" id="preloaderParticles"></div>
+    </div>
+  </div>
+
+  <!-- ═══════════════ NAVBAR ═══════════════ -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-brand">
+      <span class="nav-kanji">力</span>
+      <span class="nav-text">CAFE SUNDARA</span>
+    </div>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#about" class="nav-link">Origin</a></li>
+      <li><a href="#characters" class="nav-link">Legends</a></li>
+      <li><a href="#menu" class="nav-link">Menu</a></li>
+      <li><a href="#gallery" class="nav-link">Gallery</a></li>
+      <li><a href="#contact" class="nav-link">Guild</a></li>
+    </ul>
+  </nav>
+
+  <!-- ═══════════════ HERO SECTION ═══════════════ -->
+  <section class="hero" id="hero">
+    <!-- Energy particle canvas -->
+    <canvas class="hero-canvas" id="heroCanvas"></canvas>
+
+    <!-- Background gradient layers -->
+    <div class="hero-bg-layer layer-1"></div>
+    <div class="hero-bg-layer layer-2"></div>
+    <div class="hero-bg-layer layer-3"></div>
+
+    <!-- Speed lines -->
+    <div class="speed-lines" id="speedLines"></div>
+
+    <!-- Floating character images -->
+    <div class="hero-characters" id="heroCharacters">
+      <div class="char-float char-luffy" data-depth="0.3" id="charLuffy">
+        <div class="char-aura aura-red"></div>
+        <div class="char-img-wrap">
+          <img src="https://i.imgur.com/bCWfMWc.png" alt="Monkey D. Luffy" onerror="this.src='https://placehold.co/220x320/0a0a0a/e8282a?text=LUFFY'" />
+        </div>
+        <div class="char-name-badge">LUFFY</div>
+      </div>
+      <div class="char-float char-goku" data-depth="0.2" id="charGoku">
+        <div class="char-aura aura-gold"></div>
+        <div class="char-img-wrap">
+          <img src="https://i.imgur.com/VgomGCw.png" alt="Goku" onerror="this.src='https://placehold.co/220x320/0a0a0a/f5a623?text=GOKU'" />
+        </div>
+        <div class="char-name-badge">GOKU</div>
+      </div>
+      <div class="char-float char-naruto" data-depth="0.35" id="charNaruto">
+        <div class="char-aura aura-orange"></div>
+        <div class="char-img-wrap">
+          <img src="https://i.imgur.com/fAqM5cD.png" alt="Naruto Uzumaki" onerror="this.src='https://placehold.co/220x320/0a0a0a/ff6b00?text=NARUTO'" />
+        </div>
+        <div class="char-name-badge">NARUTO</div>
+      </div>
+      <div class="char-float char-ichigo" data-depth="0.25" id="charIchigo">
+        <div class="char-aura aura-blue"></div>
+        <div class="char-img-wrap">
+          <img src="https://i.imgur.com/xE4FVXE.png" alt="Ichigo Kurosaki" onerror="this.src='https://placehold.co/220x320/0a0a0a/00bfff?text=ICHIGO'" />
+        </div>
+        <div class="char-name-badge">ICHIGO</div>
+      </div>
+    </div>
+
+    <!-- Hero content -->
+    <div class="hero-content">
+      <div class="hero-eyebrow">
+        <span class="eyebrow-line"></span>
+        <span class="eyebrow-text">DURGAPUR · WEST BENGAL · INDIA</span>
+        <span class="eyebrow-line"></span>
+      </div>
+      <h1 class="hero-title" id="heroTitle">
+        <span class="title-line t1">CAFE</span>
+        <span class="title-line t2">SUNDARA</span>
+        <span class="title-sub">WHERE LEGENDS POWER UP</span>
+      </h1>
+      <p class="hero-desc">Durgapur's Ultimate Anime Battle Café</p>
+      <a href="#about" class="hero-cta" id="heroCta">
+        <span class="cta-text">Enter the Arena</span>
+        <span class="cta-icon">⚔️</span>
+        <span class="cta-glow"></span>
+      </a>
+    </div>
+
+    <!-- Scroll indicator -->
+    <div class="scroll-indicator" id="scrollIndicator">
+      <div class="scroll-mouse">
+        <div class="scroll-wheel"></div>
+      </div>
+      <span>SCROLL DOWN</span>
+    </div>
+  </section>
+
+  <!-- ═══════════════ ABOUT SECTION ═══════════════ -->
+  <section class="about" id="about">
+    <div class="section-bg-glow about-glow"></div>
+    <div class="container">
+      <div class="section-header" data-anim="reveal">
+        <span class="section-tag">章 CHAPTER 01</span>
+        <h2 class="section-title">Our Origin Story</h2>
+        <div class="title-underline"></div>
+      </div>
+
+      <div class="about-grid">
+        <div class="about-visual" data-anim="slide-right">
+          <div class="about-image-frame">
+            <div class="frame-corner tl"></div>
+            <div class="frame-corner tr"></div>
+            <div class="frame-corner bl"></div>
+            <div class="frame-corner br"></div>
+            <div class="about-img-inner">
+              <div class="about-glitch-img">
+                <div class="glitch-text">CAFE<br/>SUNDARA</div>
+                <div class="about-kanji-overlay">
+                  <span>力</span>
+                  <span>夢</span>
+                  <span>絆</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="about-stat-row">
+            <div class="stat-item" data-anim="pop">
+              <span class="stat-num">∞</span>
+              <span class="stat-label">Power Level</span>
+            </div>
+            <div class="stat-item" data-anim="pop">
+              <span class="stat-num">4</span>
+              <span class="stat-label">Legendary Characters</span>
+            </div>
+            <div class="stat-item" data-anim="pop">
+              <span class="stat-num">16+</span>
+              <span class="stat-label">Battle Dishes</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="about-text" data-anim="slide-left">
+          <p class="about-intro">Born in the heart of <strong>Durgapur, West Bengal</strong>, Cafe Sundara was forged in the crucible of passion, anime culture, and culinary artistry.</p>
+          <div class="about-story-block">
+            <div class="story-icon">🔥</div>
+            <div>
+              <h3>A Battleground for Legends</h3>
+              <p>Every corner of Cafe Sundara is a tribute to the warriors who never gave up. Step inside and feel the energy of a thousand battles — this is where Durgapur's anime warriors come to power up.</p>
+            </div>
+          </div>
+          <div class="about-story-block">
+            <div class="story-icon">🍜</div>
+            <div>
+              <h3>Food Meets Fandom</h3>
+              <p>Our menu is a love letter to the anime universe — every dish crafted to channel the spirit of your favourite hero. From Pirate King Ramen to Saiyan Energy Blasts, taste the extraordinary.</p>
+            </div>
+          </div>
+          <div class="about-story-block">
+            <div class="story-icon">⚡</div>
+            <div>
+              <h3>The Shonen Spirit</h3>
+              <p>Growth. Power. Friendship. Brotherhood. These aren't just anime themes — they're the pillars on which Cafe Sundara was built. Walk in as a customer, walk out as a legend.</p>
+            </div>
+          </div>
+          <div class="about-location-badge">
+            <span class="loc-pin">📍</span>
+            <span>Durgapur, West Bengal, India</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ CHARACTERS SECTION ═══════════════ -->
+  <section class="characters" id="characters">
+    <div class="section-bg-glow chars-glow"></div>
+    <div class="container">
+      <div class="section-header" data-anim="reveal">
+        <span class="section-tag">章 CHAPTER 02</span>
+        <h2 class="section-title">Legends of Sundara</h2>
+        <div class="title-underline"></div>
+        <p class="section-subtitle">The warriors who inspire every cup, every bite, every moment.</p>
+      </div>
+
+      <div class="chars-grid" id="charsGrid">
+
+        <!-- Luffy -->
+        <div class="char-card" data-char="luffy" data-anim="char-card">
+          <div class="card-aura aura-red"></div>
+          <div class="card-bg-pattern"></div>
+          <div class="card-rank">
+            <span class="rank-badge">KING</span>
+          </div>
+          <div class="card-img-wrap">
+            <div class="card-img-circle">
+              <img src="https://i.imgur.com/bCWfMWc.png" alt="Monkey D. Luffy" onerror="this.src='https://placehold.co/200x200/1a0505/e8282a?text=LUFFY'" />
+            </div>
+            <div class="card-img-glow red-glow"></div>
+          </div>
+          <div class="card-content">
+            <div class="card-series">ONE PIECE</div>
+            <h3 class="card-name">Monkey D. Luffy</h3>
+            <div class="card-power-bar">
+              <div class="power-fill" style="--pw:96%; --clr:#e8282a"></div>
+            </div>
+            <blockquote class="card-quote">
+              "I don't want to conquer anything. I just think the guy with the most freedom in this whole ocean — that's the Pirate King!"
+            </blockquote>
+            <div class="card-tags">
+              <span class="tag">Gum-Gum</span>
+              <span class="tag">Gear 5</span>
+              <span class="tag">Freedom</span>
+            </div>
+          </div>
+          <div class="card-corner-glow"></div>
+        </div>
+
+        <!-- Goku -->
+        <div class="char-card" data-char="goku" data-anim="char-card">
+          <div class="card-aura aura-gold"></div>
+          <div class="card-bg-pattern"></div>
+          <div class="card-rank">
+            <span class="rank-badge gold">SAIYAN</span>
+          </div>
+          <div class="card-img-wrap">
+            <div class="card-img-circle">
+              <img src="https://i.imgur.com/VgomGCw.png" alt="Goku" onerror="this.src='https://placehold.co/200x200/1a1500/f5a623?text=GOKU'" />
+            </div>
+            <div class="card-img-glow gold-glow"></div>
+          </div>
+          <div class="card-content">
+            <div class="card-series">DRAGON BALL Z</div>
+            <h3 class="card-name">Son Goku</h3>
+            <div class="card-power-bar">
+              <div class="power-fill" style="--pw:100%; --clr:#f5a623"></div>
+            </div>
+            <blockquote class="card-quote">
+              "Power comes in response to a need, not a desire. You have to create that need."
+            </blockquote>
+            <div class="card-tags">
+              <span class="tag">Ultra Instinct</span>
+              <span class="tag">Kamehameha</span>
+              <span class="tag">Limitless</span>
+            </div>
+          </div>
+          <div class="card-corner-glow gold-corner"></div>
+        </div>
+
+        <!-- Naruto -->
+        <div class="char-card" data-char="naruto" data-anim="char-card">
+          <div class="card-aura aura-orange"></div>
+          <div class="card-bg-pattern"></div>
+          <div class="card-rank">
+            <span class="rank-badge orange">HOKAGE</span>
+          </div>
+          <div class="card-img-wrap">
+            <div class="card-img-circle">
+              <img src="https://i.imgur.com/fAqM5cD.png" alt="Naruto Uzumaki" onerror="this.src='https://placehold.co/200x200/1a0a00/ff6b00?text=NARUTO'" />
+            </div>
+            <div class="card-img-glow orange-glow"></div>
+          </div>
+          <div class="card-content">
+            <div class="card-series">NARUTO SHIPPUDEN</div>
+            <h3 class="card-name">Naruto Uzumaki</h3>
+            <div class="card-power-bar">
+              <div class="power-fill" style="--pw:98%; --clr:#ff6b00"></div>
+            </div>
+            <blockquote class="card-quote">
+              "I never go back on my word. That's my ninja way!"
+            </blockquote>
+            <div class="card-tags">
+              <span class="tag">Nine-Tails</span>
+              <span class="tag">Sage Mode</span>
+              <span class="tag">Dattebayo</span>
+            </div>
+          </div>
+          <div class="card-corner-glow orange-corner"></div>
+        </div>
+
+        <!-- Ichigo -->
+        <div class="char-card" data-char="ichigo" data-anim="char-card">
+          <div class="card-aura aura-blue"></div>
+          <div class="card-bg-pattern"></div>
+          <div class="card-rank">
+            <span class="rank-badge blue">SOUL REAPER</span>
+          </div>
+          <div class="card-img-wrap">
+            <div class="card-img-circle">
+              <img src="https://i.imgur.com/xE4FVXE.png" alt="Ichigo Kurosaki" onerror="this.src='https://placehold.co/200x200/00051a/00bfff?text=ICHIGO'" />
+            </div>
+            <div class="card-img-glow blue-glow"></div>
+          </div>
+          <div class="card-content">
+            <div class="card-series">BLEACH</div>
+            <h3 class="card-name">Ichigo Kurosaki</h3>
+            <div class="card-power-bar">
+              <div class="power-fill" style="--pw:99%; --clr:#00bfff"></div>
+            </div>
+            <blockquote class="card-quote">
+              "If fate is a millstone, then we are the grist. There is nothing we can do... but stand next to the one we love."
+            </blockquote>
+            <div class="card-tags">
+              <span class="tag">Bankai</span>
+              <span class="tag">Hollow</span>
+              <span class="tag">Getsuga</span>
+            </div>
+          </div>
+          <div class="card-corner-glow blue-corner"></div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ MENU SECTION ═══════════════ -->
+  <section class="menu" id="menu">
+    <div class="section-bg-glow menu-glow"></div>
+    <div class="container">
+      <div class="section-header" data-anim="reveal">
+        <span class="section-tag">章 CHAPTER 03</span>
+        <h2 class="section-title">Power-Up Menu</h2>
+        <div class="title-underline"></div>
+        <p class="section-subtitle">Fuel your inner warrior. Every dish holds a power level.</p>
+      </div>
+
+      <div class="menu-grid" id="menuGrid">
+
+        <div class="menu-card" data-anim="menu-card">
+          <div class="menu-card-glow"></div>
+          <div class="menu-emoji">🍜</div>
+          <div class="menu-badge">LEGENDARY</div>
+          <h3 class="menu-name">Pirate King Ramen</h3>
+          <p class="menu-desc">Rich tonkotsu broth, chashu pork belly, marinated soft egg, bamboo shoots — the ramen worthy of the King of Pirates.</p>
+          <div class="menu-footer">
+            <span class="menu-price">₹ 349</span>
+            <span class="menu-power">PWR LVL: ⭐⭐⭐⭐⭐</span>
+          </div>
+        </div>
+
+        <div class="menu-card" data-anim="menu-card">
+          <div class="menu-card-glow gold-glow-m"></div>
+          <div class="menu-emoji">⚡</div>
+          <div class="menu-badge gold-badge">ULTRA</div>
+          <h3 class="menu-name">Saiyan Energy Blast Drink</h3>
+          <p class="menu-desc">Charged mango-yuzu fusion with electric blue spirulina swirl. Transform your energy with every sip.</p>
+          <div class="menu-footer">
+            <span class="menu-price">₹ 199</span>
+            <span class="menu-power">PWR LVL: ⭐⭐⭐⭐⭐</span>
+          </div>
+        </div>
+
+        <div class="menu-card" data-anim="menu-card">
+          <div class="menu-card-glow orange-glow-m"></div>
+          <div class="menu-emoji">🔥</div>
+          <div class="menu-badge orange-badge">HOKAGE</div>
+          <h3 class="menu-name">Hokage Fire Wings</h3>
+          <p class="menu-desc">Blazing chilli-miso glazed chicken wings — so fiery, only the Seventh Hokage dares eat the full platter.</p>
+          <div class="menu-footer">
+            <span class="menu-price">₹ 299</span>
+            <span class="menu-power">PWR LVL: ⭐⭐⭐⭐⭐</span>
+          </div>
+        </div>
+
+        <div class="menu-card" data-anim="menu-card">
+          <div class="menu-card-glow blue-glow-m"></div>
+          <div class="menu-emoji">🍝</div>
+          <div class="menu-badge blue-badge">BANKAI</div>
+          <h3 class="menu-name">Soul Reaper Black Noodles</h3>
+          <p class="menu-desc">Ink-black squid noodles with dark sesame broth and ghost-pepper tare — a dish forged in the Soul Society.</p>
+          <div class="menu-footer">
+            <span class="menu-price">₹ 329</span>
+            <span class="menu-power">PWR LVL: ⭐⭐⭐⭐⭐</span>
+          </div>
+        </div>
+
+        <div class="menu-card" data-anim="menu-card">
+          <div class="menu-card-glow purple-glow-m"></div>
+          <div class="menu-emoji">🍔</div>
+          <div class="menu-badge purple-badge">TITAN</div>
+          <h3 class="menu-name">Titan Thunder Burger</h3>
+          <p class="menu-desc">Double-stacked smash patty with thunder sauce, crispy onion rings, and black charcoal bun — colossal in every way.</p>
+          <div class="menu-footer">
+            <span class="menu-price">₹ 379</span>
+            <span class="menu-power">PWR LVL: ⭐⭐⭐⭐⭐</span>
+          </div>
+        </div>
+
+        <div class="menu-card" data-anim="menu-card">
+          <div class="menu-card-glow red-glow-m"></div>
+          <div class="menu-emoji">🧋</div>
+          <div class="menu-badge red-badge">DEMON</div>
+          <h3 class="menu-name">Demon Slayer Matcha Latte</h3>
+          <p class="menu-desc">Ceremonial-grade matcha, oat milk, and crimson butterfly latte art — a warrior's calm before the storm.</p>
+          <div class="menu-footer">
+            <span class="menu-price">₹ 219</span>
+            <span class="menu-power">PWR LVL: ⭐⭐⭐⭐☆</span>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="menu-cta" data-anim="reveal">
+        <p>More legendary dishes await inside the arena.</p>
+        <a href="#contact" class="hero-cta small-cta">
+          <span class="cta-text">View Full Menu</span>
+          <span class="cta-icon">📜</span>
+          <span class="cta-glow"></span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ GALLERY SECTION ═══════════════ -->
+  <section class="gallery" id="gallery">
+    <div class="section-bg-glow gallery-glow"></div>
+    <div class="container">
+      <div class="section-header" data-anim="reveal">
+        <span class="section-tag">章 CHAPTER 04</span>
+        <h2 class="section-title">Moments of Glory</h2>
+        <div class="title-underline"></div>
+        <p class="section-subtitle">Battles fought. Ramen slurped. Legends made.</p>
+      </div>
+
+      <div class="gallery-masonry" id="galleryGrid">
+        <div class="gallery-item tall" data-anim="gallery-item" data-index="0">
+          <div class="gallery-placeholder" style="--bg:#1a0505; --clr:#e8282a">
+            <span class="gallery-kanji">戦</span>
+            <span class="gallery-label">Battle Arena</span>
+          </div>
+          <div class="gallery-overlay">
+            <span class="gallery-caption">⚔️ The Battle Arena</span>
+          </div>
+        </div>
+        <div class="gallery-item" data-anim="gallery-item" data-index="1">
+          <div class="gallery-placeholder" style="--bg:#1a1500; --clr:#f5a623">
+            <span class="gallery-kanji">力</span>
+            <span class="gallery-label">Power Section</span>
+          </div>
+          <div class="gallery-overlay">
+            <span class="gallery-caption">⚡ Power Corner</span>
+          </div>
+        </div>
+        <div class="gallery-item" data-anim="gallery-item" data-index="2">
+          <div class="gallery-placeholder" style="--bg:#1a0a00; --clr:#ff6b00">
+            <span class="gallery-kanji">炎</span>
+            <span class="gallery-label">Fire Kitchen</span>
+          </div>
+          <div class="gallery-overlay">
+            <span class="gallery-caption">🔥 Fire Kitchen</span>
+          </div>
+        </div>
+        <div class="gallery-item wide" data-anim="gallery-item" data-index="3">
+          <div class="gallery-placeholder" style="--bg:#00051a; --clr:#00bfff">
+            <span class="gallery-kanji">魂</span>
+            <span class="gallery-label">Soul Lounge</span>
+          </div>
+          <div class="gallery-overlay">
+            <span class="gallery-caption">🌊 Soul Lounge</span>
+          </div>
+        </div>
+        <div class="gallery-item tall" data-anim="gallery-item" data-index="4">
+          <div class="gallery-placeholder" style="--bg:#10001a; --clr:#9b59b6">
+            <span class="gallery-kanji">夢</span>
+            <span class="gallery-label">Dream Space</span>
+          </div>
+          <div class="gallery-overlay">
+            <span class="gallery-caption">✨ Dream Space</span>
+          </div>
+        </div>
+        <div class="gallery-item" data-anim="gallery-item" data-index="5">
+          <div class="gallery-placeholder" style="--bg:#001a05; --clr:#2ecc71">
+            <span class="gallery-kanji">絆</span>
+            <span class="gallery-label">Bond Area</span>
+          </div>
+          <div class="gallery-overlay">
+            <span class="gallery-caption">🌿 Nakama Corner</span>
+          </div>
+        </div>
+        <div class="gallery-item" data-anim="gallery-item" data-index="6">
+          <div class="gallery-placeholder" style="--bg:#1a0505; --clr:#e8282a">
+            <span class="gallery-kanji">食</span>
+            <span class="gallery-label">Food Heaven</span>
+          </div>
+          <div class="gallery-overlay">
+            <span class="gallery-caption">🍜 Food Heaven</span>
+          </div>
+        </div>
+        <div class="gallery-item wide" data-anim="gallery-item" data-index="7">
+          <div class="gallery-placeholder" style="--bg:#0a0a1a; --clr:#4a90e2">
+            <span class="gallery-kanji">星</span>
+            <span class="gallery-label">Night Events</span>
+          </div>
+          <div class="gallery-overlay">
+            <span class="gallery-caption">🌟 Night Events</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox">
+      <button class="lightbox-close" id="lightboxClose">✕</button>
+      <div class="lightbox-content" id="lightboxContent"></div>
+      <button class="lightbox-prev" id="lightboxPrev">‹</button>
+      <button class="lightbox-next" id="lightboxNext">›</button>
+    </div>
+  </section>
+
+  <!-- ═══════════════ CONTACT SECTION ═══════════════ -->
+  <section class="contact" id="contact">
+    <div class="section-bg-glow contact-glow"></div>
+    <div class="container">
+      <div class="section-header" data-anim="reveal">
+        <span class="section-tag">章 CHAPTER 05</span>
+        <h2 class="section-title">Join the Guild</h2>
+        <div class="title-underline"></div>
+        <p class="section-subtitle">Every legend starts with the first step. Step into Sundara.</p>
+      </div>
+
+      <div class="contact-grid">
+        <div class="contact-info" data-anim="slide-right">
+          <div class="info-card">
+            <div class="info-icon">📍</div>
+            <div>
+              <h4>Find the Arena</h4>
+              <p>Durgapur, West Bengal, India</p>
+            </div>
+          </div>
+          <div class="info-card">
+            <div class="info-icon">📧</div>
+            <div>
+              <h4>Battle Mail</h4>
+              <p><a href="mailto:distintdark@gmail.com">distintdark@gmail.com</a></p>
+            </div>
+          </div>
+          <div class="info-card">
+            <div class="info-icon">⏰</div>
+            <div>
+              <h4>Arena Hours</h4>
+              <p>Mon – Fri: 11:00 AM – 11:00 PM</p>
+              <p>Sat – Sun: 10:00 AM – 12:00 AM</p>
+            </div>
+          </div>
+          <div class="social-row">
+            <a href="#" class="social-btn" title="Instagram">
+              <span>📸</span><span>Instagram</span>
+            </a>
+            <a href="#" class="social-btn" title="Twitter">
+              <span>🐦</span><span>Twitter</span>
+            </a>
+            <a href="#" class="social-btn" title="Discord">
+              <span>🎮</span><span>Discord</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="contact-form-wrap" data-anim="slide-left">
+          <form class="contact-form" id="contactForm" novalidate>
+            <div class="form-group">
+              <label for="formName">Your Battle Name</label>
+              <input type="text" id="formName" name="name" placeholder="Enter your name..." autocomplete="name" />
+              <span class="form-error" id="nameError"></span>
+            </div>
+            <div class="form-group">
+              <label for="formEmail">Guild Email</label>
+              <input type="email" id="formEmail" name="email" placeholder="Enter your email..." autocomplete="email" />
+              <span class="form-error" id="emailError"></span>
+            </div>
+            <div class="form-group">
+              <label for="formMsg">Your Battle Scroll</label>
+              <textarea id="formMsg" name="message" rows="5" placeholder="Write your message..."></textarea>
+              <span class="form-error" id="msgError"></span>
+            </div>
+            <button type="submit" class="form-submit" id="formSubmit">
+              <span class="submit-text">Send the Scroll ⚡</span>
+              <span class="submit-glow"></span>
+            </button>
+          </form>
+          <div class="form-success" id="formSuccess">
+            <div class="success-icon">⚡</div>
+            <h3>Message Sent!</h3>
+            <p>Your scroll reaches Sundara. We'll respond within 1 arc!</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ FOOTER ═══════════════ -->
+  <footer class="footer">
+    <div class="footer-anim-line" id="footerLine"></div>
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <span class="nav-kanji large-kanji">力</span>
+          <div>
+            <div class="footer-name">CAFE SUNDARA</div>
+            <div class="footer-tagline">Where Legends Power Up</div>
+          </div>
+        </div>
+        <div class="footer-links">
+          <a href="#about">Origin</a>
+          <a href="#characters">Legends</a>
+          <a href="#menu">Menu</a>
+          <a href="#gallery">Gallery</a>
+          <a href="#contact">Guild</a>
+        </div>
+        <div class="footer-copy">
+          &copy; 2026 Cafe Sundara. All rights reserved.<br/>
+          <span>Forged in Durgapur, West Bengal ⚔️</span>
+        </div>
+      </div>
+    </div>
+    <div class="footer-glow-bottom"></div>
+  </footer>
+
+  <!-- Script -->
+  <script src="script.js"></script>
+</body>
+</html>
